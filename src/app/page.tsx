@@ -4,7 +4,17 @@ import { stories } from "./data/stories";
 
 export default function Home() {
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white relative">
+
+      {/* TOP NAVBAR */}
+      <div className="flex justify-between items-center px-4 py-3 border-b border-white/10">
+        <h1 className="text-3xl font-bold font-serif">Instagram</h1>
+
+        <div className="flex gap-6 text-2xl">
+          <span>🤍</span> {/* Heart */}
+          <span>💬</span> {/* Message */}
+        </div>
+      </div>
 
       {/* STORIES BAR */}
       <div className="p-4 flex gap-4 overflow-x-auto no-scrollbar">
@@ -27,23 +37,21 @@ export default function Home() {
       </div>
 
       {/* POSTS FEED */}
-      <div className="mt-6 space-y-10 pb-20">
+      <div className="mt-4 space-y-10 pb-28">
 
         {/* POST 1 */}
         <div className="border-b border-white/10 pb-10">
-          {/* Post Header */}
           <div className="flex items-center gap-3 px-4">
             <Image
               src="/rahul.jpg"
               width={45}
               height={45}
               className="rounded-full object-cover"
-              alt="Rahul"
+              alt=""
             />
             <span className="font-semibold text-lg">Rahul</span>
           </div>
 
-          {/* Post Image (VERTICAL FIX) */}
           <div className="w-full h-auto mt-3">
             <Image
               src="/rahul1.jpg"
@@ -54,8 +62,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Dummy Footer */}
-          <div className="flex justify-between items-center px-4 py-3 text-white/90 select-none pointer-events-none text-2xl">
+          <div className="flex justify-between items-center px-4 py-3 text-2xl text-white/90">
             <div className="flex gap-4">
               <span>❤️</span>
               <span>💬</span>
@@ -68,23 +75,27 @@ export default function Home() {
           <p className="px-4 text-sm mt-1">
             <span className="font-semibold">Rahul</span> Enjoying the view 🌄
           </p>
+
+          {/* Dummy comments */}
+          <p className="px-4 text-sm text-white/70 mt-1">View all 12 comments</p>
+          <p className="px-4 text-sm mt-1">
+            <span className="font-semibold">Sneha</span> Wow beautiful 😍
+          </p>
         </div>
 
         {/* POST 2 */}
         <div className="border-b border-white/10 pb-10">
-          {/* Post Header */}
           <div className="flex items-center gap-3 px-4">
             <Image
               src="/sneha.jpg"
               width={45}
               height={45}
               className="rounded-full object-cover"
-              alt="Sneha"
+              alt=""
             />
             <span className="font-semibold text-lg">Sneha</span>
           </div>
 
-          {/* Post Image (VERTICAL FIX) */}
           <div className="w-full h-auto mt-3">
             <Image
               src="/sneha1.jpg"
@@ -95,8 +106,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Dummy Footer */}
-          <div className="flex justify-between items-center px-4 py-3 text-white/90 select-none pointer-events-none text-2xl">
+          <div className="flex justify-between items-center px-4 py-3 text-2xl text-white/90">
             <div className="flex gap-4">
               <span>❤️</span>
               <span>💬</span>
@@ -109,7 +119,29 @@ export default function Home() {
           <p className="px-4 text-sm mt-1">
             <span className="font-semibold">Sneha</span> Love this place 💖
           </p>
+
+          <p className="px-4 text-sm text-white/70 mt-1">View all 18 comments</p>
+          <p className="px-4 text-sm mt-1">
+            <span className="font-semibold">Rahul</span> Amazing 📸
+          </p>
         </div>
+
+      </div>
+
+      {/* BOTTOM NAVBAR */}
+      <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 flex justify-around text-3xl">
+
+        <span>🏠</span> {/* Home */}
+        <span>🔍</span> {/* Search */}
+        <span>➕</span> {/* Add */}
+        <span>🎬</span> {/* Reels */}
+        <Image
+          src="/profile.jpg"
+          width={35}
+          height={35}
+          className="rounded-full object-cover"
+          alt="profile"
+        />
 
       </div>
     </div>

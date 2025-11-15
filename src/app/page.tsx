@@ -8,9 +8,16 @@ export default function Home() {
 
       {/* TOP NAVBAR */}
       <div className="flex justify-between items-center px-4 py-3 border-b border-white/10">
-        <h1 className="text-3xl font-bold font-serif">Instagram</h1>
+        <Image
+  src="/logo.png"
+  width={130}
+  height={40}
+  alt="Instagram Logo"
+  className="object-contain mt-1"
+/>
 
-        <div className="flex gap-6 text-2xl">
+
+        <div className="flex gap-6 text-3xl">
           <span>🤍</span> {/* Heart */}
           <span>💬</span> {/* Message */}
         </div>
@@ -76,7 +83,6 @@ export default function Home() {
             <span className="font-semibold">Rahul</span> Enjoying the view 🌄
           </p>
 
-          {/* Dummy comments */}
           <p className="px-4 text-sm text-white/70 mt-1">View all 12 comments</p>
           <p className="px-4 text-sm mt-1">
             <span className="font-semibold">Sneha</span> Wow beautiful 😍
@@ -130,11 +136,10 @@ export default function Home() {
 
       {/* BOTTOM NAVBAR */}
       <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 flex justify-around text-3xl">
-
-        <span>🏠</span> {/* Home */}
-        <span>🔍</span> {/* Search */}
-        <span>➕</span> {/* Add */}
-        <span>🎬</span> {/* Reels */}
+        <span>🏠</span>
+        <span>🔍</span>
+        <span>➕</span>
+        <span>🎬</span>
         <Image
           src="/profile.jpg"
           width={35}
@@ -142,7 +147,6 @@ export default function Home() {
           className="rounded-full object-cover"
           alt="profile"
         />
-
       </div>
     </div>
   );

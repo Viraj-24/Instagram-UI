@@ -2,10 +2,10 @@
 
 import { stories } from "../../data/stories";
 import Image from "next/image";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function StoryViewer({ params }: any) {
-  const { id } = params as { id: string };
+export default function StoryViewer({ params }: { params: { id: string } }) {
+  const { id } = params;
 
   const story = stories.find((s) => s.user.id === id)!;
 
@@ -13,11 +13,23 @@ export default function StoryViewer({ params }: any) {
   const [progress, setProgress] = useState(0);
   const [viewCount, setViewCount] = useState(0);
 
-  // 👉 Assume each device is a unique viewer (like Instagram)
-  const viewerId = "device_" + (typeof window !== "undefined"
-    ? window.crypto.randomUUID()
-    : "0");
+  // 👉 Get or create device ID (only once per browser)
+  const getDeviceId = () => {
+    if (typeof window === "undefined") return "server";
 
+    let deviceId = localStorage.getItem("deviceId");
+
+    if (!deviceId) {
+      deviceId = "device_" + crypto.randomUUID();
+      localStorage.setItem("deviceId", deviceId);
+    }
+
+    return deviceId;
+  };
+
+  const viewerId = getDeviceId();
+
+  // ⭐ Unique View Counter
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -27,7 +39,7 @@ export default function StoryViewer({ params }: any) {
       views[story.user.id] = [];
     }
 
-    // ⭐ Count only if NEW viewer
+    // Add viewer only if new
     if (!views[story.user.id].includes(viewerId)) {
       views[story.user.id].push(viewerId);
       localStorage.setItem("uniqueStoryViews", JSON.stringify(views));
@@ -55,7 +67,6 @@ export default function StoryViewer({ params }: any) {
     return () => clearInterval(interval);
   }, [current]);
 
-  // Next story
   const nextStory = () => {
     if (current < story.items.length - 1) {
       setCurrent((c) => c + 1);
@@ -64,17 +75,14 @@ export default function StoryViewer({ params }: any) {
     }
   };
 
-  // Previous
   const prevStory = () => {
-    if (current > 0) {
-      setCurrent((c) => c - 1);
-    }
+    if (current > 0) setCurrent((c) => c - 1);
   };
 
   return (
     <div className="relative h-screen w-screen bg-black text-white overflow-hidden">
 
-      {/* FULL IMAGE */}
+      {/* Full Image */}
       {story.items[current] && (
         <div className="absolute inset-0 z-10">
           <Image
@@ -102,11 +110,11 @@ export default function StoryViewer({ params }: any) {
         ))}
       </div>
 
-      {/* Tap Zones */}
+      {/* Navigation Tap Zones */}
       <div className="absolute left-0 w-1/2 h-full z-50" onClick={prevStory}></div>
       <div className="absolute right-0 w-1/2 h-full z-50" onClick={nextStory}></div>
 
-      {/* Unique Viewer Count */}
+      {/* Viewer Counter */}
       <div className="absolute bottom-8 text-center w-full z-50 text-sm">
         Viewed by: {viewCount}
       </div>

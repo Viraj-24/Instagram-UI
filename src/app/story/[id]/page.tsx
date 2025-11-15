@@ -8,12 +8,10 @@ import { useEffect, useState } from "react";
 export default function StoryViewer() {
   const params = useParams();
   const router = useRouter();
-
   const id = params.id as string;
 
   const story = stories.find((s) => s.user.id === id);
-
-  if (!story) return <div className="text-white">Story not found</div>;
+  if (!story) return <div className="text-white p-4">Story not found</div>;
 
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -21,11 +19,9 @@ export default function StoryViewer() {
 
   // Unique viewer ID
   const viewerId =
-    "device_" +
-    (typeof window !== "undefined"
-      ? window.crypto.randomUUID()
-      : "0");
+    "device_" + (typeof window !== "undefined" ? crypto.randomUUID() : "_server");
 
+  // Count unique viewers
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -43,11 +39,9 @@ export default function StoryViewer() {
     setViewCount(views[story.user.id].length);
   }, []);
 
-  // Progress bar
+  // Auto Progress
   useEffect(() => {
     setProgress(0);
-
-    const duration = story.items[current]?.duration ?? 2000;
 
     const interval = setInterval(() => {
       setProgress((p) => {
@@ -57,7 +51,7 @@ export default function StoryViewer() {
         }
         return p + 1;
       });
-    }, duration / 100);
+    }, story.items[current].duration / 100);
 
     return () => clearInterval(interval);
   }, [current]);
@@ -66,7 +60,11 @@ export default function StoryViewer() {
     if (current < story.items.length - 1) {
       setCurrent((c) => c + 1);
     } else {
-      router.push("/");
+      const index = stories.findIndex((s) => s.user.id === id);
+      const next = stories[index + 1];
+
+      if (next) router.push(`/story/${next.user.id}`);
+      else router.push("/");
     }
   };
 
@@ -79,16 +77,18 @@ export default function StoryViewer() {
   return (
     <div className="relative h-screen w-screen bg-black text-white overflow-hidden">
 
-      {/* Full image */}
-      <Image
-        src={story.items[current].mediaUrl}
-        alt="story"
-        fill
-        unoptimized
-        className="object-cover"
-      />
+      {/* Full Screen Story Image */}
+      {story.items[current] && (
+        <Image
+          src={story.items[current].mediaUrl}
+          alt="story"
+          fill
+          unoptimized
+          className="object-cover"
+        />
+      )}
 
-      {/* Progress bars */}
+      {/* Progress Bars */}
       <div className="absolute top-4 left-4 right-4 z-50 flex gap-2">
         {story.items.map((_, i) => (
           <div key={i} className="h-1 w-full bg-white/20 rounded">
@@ -103,13 +103,55 @@ export default function StoryViewer() {
         ))}
       </div>
 
-      {/* Tap zones */}
-      <div className="absolute left-0 w-1/2 h-full z-50" onClick={prevStory}></div>
-      <div className="absolute right-0 w-1/2 h-full z-50" onClick={nextStory}></div>
+      {/* 🌟 Instagram-style Top Bar */}
+      <div className="absolute top-10 left-4 z-[60] flex items-center gap-3">
+        <Image
+          src={story.user.avatar}
+          width={40}
+          height={40}
+          alt="avatar"
+          className="rounded-full border border-white/40 object-cover"
+        />
 
-      {/* Viewer count */}
-      <div className="absolute bottom-8 text-center w-full z-50 text-sm">
+        <div className="flex flex-col leading-tight">
+          <span className="font-semibold text-sm">{story.user.name}</span>
+          <span className="text-xs text-gray-300">
+            {Math.floor((Date.now() - new Date(story.createdAt).getTime()) / 60000)} min ago
+          </span>
+        </div>
+      </div>
+
+      {/* Close Button */}
+      <div
+        onClick={() => router.push("/")}
+        className="absolute top-10 right-4 z-[60] text-3xl font-bold cursor-pointer"
+      >
+        ×
+      </div>
+
+      {/* Tap Zones */}
+      <div className="absolute left-0 w-1/2 h-full z-40" onClick={prevStory} />
+      <div className="absolute right-0 w-1/2 h-full z-40" onClick={nextStory} />
+
+      {/* View Count */}
+      <div className="absolute bottom-20 w-full text-center text-sm z-50">
         Viewed by: {viewCount}
+      </div>
+
+      {/* ⭐ Dummy Comment Box & Reactions */}
+      <div className="absolute bottom-4 left-4 right-4 z-[60] flex items-center gap-3">
+
+        <div className="flex-1 bg-white/20 text-white px-4 py-2 rounded-full text-sm opacity-90">
+          Send message...
+        </div>
+
+        <div className="flex gap-2 text-2xl">
+          <span>❤️</span>
+          <span>😂</span>
+          <span>🔥</span>
+          <span>😮</span>
+        </div>
+
       </div>
     </div>
   );

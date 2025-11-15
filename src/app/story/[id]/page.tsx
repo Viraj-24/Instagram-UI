@@ -5,7 +5,8 @@ import Image from "next/image";
 import { use, useEffect, useState } from "react";
 
 export default function StoryViewer({ params }: any) {
-  const { id } = use(params);
+  const { id } = params as { id: string };
+
   const story = stories.find((s) => s.user.id === id)!;
 
   const [current, setCurrent] = useState(0);

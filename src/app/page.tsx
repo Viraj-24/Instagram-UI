@@ -9,7 +9,7 @@ export default function Home() {
     <div className="flex justify-between items-center px-4 h-16 border-b border-white/10">
   <Image
     src="/logo.png"
-    width={120}
+    width={130}
     height={40}
     alt="Instagram Logo"
     className="object-contain"

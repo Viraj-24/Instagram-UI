@@ -1,65 +1,117 @@
 import Image from "next/image";
+import Link from "next/link";
+import { stories } from "./data/stories";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="bg-black min-h-screen text-white">
+
+      {/* STORIES BAR */}
+      <div className="p-4 flex gap-4 overflow-x-auto no-scrollbar">
+        {stories.map((story) => (
+          <Link href={`/story/${story.user.id}`} key={story.user.id}>
+            <div className="flex flex-col items-center cursor-pointer">
+              <div className="w-[70px] h-[70px] rounded-full border-4 border-pink-500 overflow-hidden">
+                <Image
+                  src={story.user.avatar}
+                  width={70}
+                  height={70}
+                  alt="avatar"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <p className="text-sm mt-2">{story.user.name}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* POSTS FEED */}
+      <div className="mt-6 space-y-10 pb-20">
+
+        {/* POST 1 */}
+        <div className="border-b border-white/10 pb-10">
+          {/* Post Header */}
+          <div className="flex items-center gap-3 px-4">
+            <Image
+              src="/rahul.jpg"
+              width={45}
+              height={45}
+              className="rounded-full object-cover"
+              alt="Rahul"
+            />
+            <span className="font-semibold text-lg">Rahul</span>
+          </div>
+
+          {/* Post Image (VERTICAL FIX) */}
+          <div className="w-full h-auto mt-3">
+            <Image
+              src="/rahul1.jpg"
+              alt="post"
+              width={800}
+              height={1200}
+              className="w-full object-cover"
+            />
+          </div>
+
+          {/* Dummy Footer */}
+          <div className="flex justify-between items-center px-4 py-3 text-white/90 select-none pointer-events-none text-2xl">
+            <div className="flex gap-4">
+              <span>❤️</span>
+              <span>💬</span>
+              <span>📤</span>
+            </div>
+            <span>🔖</span>
+          </div>
+
+          <p className="px-4 font-semibold">120 likes</p>
+          <p className="px-4 text-sm mt-1">
+            <span className="font-semibold">Rahul</span> Enjoying the view 🌄
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+
+        {/* POST 2 */}
+        <div className="border-b border-white/10 pb-10">
+          {/* Post Header */}
+          <div className="flex items-center gap-3 px-4">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/sneha.jpg"
+              width={45}
+              height={45}
+              className="rounded-full object-cover"
+              alt="Sneha"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <span className="font-semibold text-lg">Sneha</span>
+          </div>
+
+          {/* Post Image (VERTICAL FIX) */}
+          <div className="w-full h-auto mt-3">
+            <Image
+              src="/sneha1.jpg"
+              alt="post"
+              width={800}
+              height={1200}
+              className="w-full object-cover"
+            />
+          </div>
+
+          {/* Dummy Footer */}
+          <div className="flex justify-between items-center px-4 py-3 text-white/90 select-none pointer-events-none text-2xl">
+            <div className="flex gap-4">
+              <span>❤️</span>
+              <span>💬</span>
+              <span>📤</span>
+            </div>
+            <span>🔖</span>
+          </div>
+
+          <p className="px-4 font-semibold">300 likes</p>
+          <p className="px-4 text-sm mt-1">
+            <span className="font-semibold">Sneha</span> Love this place 💖
+          </p>
         </div>
-      </main>
+
+      </div>
     </div>
   );
 }

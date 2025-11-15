@@ -7,14 +7,15 @@ export default function Home() {
     <div className="bg-black min-h-screen text-white relative">
 
       {/* TOP NAVBAR */}
-      <div className="flex justify-between items-center px-4 py-3 border-b border-white/10">
-        <Image
-  src="/logo.png"
-  width={130}
-  height={40}
-  alt="Instagram Logo"
-  className="object-contain mt-1"
-/>
+    <div className="flex justify-between items-center px-4 py-3 border-b border-white/10">
+  <Image
+    src="/logo.png"
+    width={130}
+    height={40}
+    alt="Instagram Logo"
+    className="object-contain mt-1"
+  />
+
 
 
         <div className="flex gap-6 text-3xl">

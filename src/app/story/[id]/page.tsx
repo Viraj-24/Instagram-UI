@@ -17,11 +17,11 @@ export default function StoryViewer() {
   const [progress, setProgress] = useState(0);
   const [viewCount, setViewCount] = useState(0);
 
-  // Unique viewer ID
+  
   const viewerId =
     "device_" + (typeof window !== "undefined" ? crypto.randomUUID() : "_server");
 
-  // Count unique viewers
+  
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -38,8 +38,6 @@ export default function StoryViewer() {
 
     setViewCount(views[story.user.id].length);
   }, []);
-
-  // Auto Progress
   useEffect(() => {
     setProgress(0);
 
@@ -77,7 +75,7 @@ export default function StoryViewer() {
   return (
     <div className="relative h-screen w-screen bg-black text-white overflow-hidden">
 
-      {/* Full Screen Story Image */}
+      
       {story.items[current] && (
         <Image
           src={story.items[current].mediaUrl}
@@ -88,7 +86,7 @@ export default function StoryViewer() {
         />
       )}
 
-      {/* Progress Bars */}
+      
       <div className="absolute top-4 left-4 right-4 z-50 flex gap-2">
         {story.items.map((_, i) => (
           <div key={i} className="h-1 w-full bg-white/20 rounded">
@@ -103,7 +101,6 @@ export default function StoryViewer() {
         ))}
       </div>
 
-      {/* 🌟 Instagram-style Top Bar */}
       <div className="absolute top-10 left-4 z-[60] flex items-center gap-3">
         <Image
           src={story.user.avatar}
@@ -124,7 +121,7 @@ export default function StoryViewer() {
         </div>
       </div>
 
-      {/* Close Button */}
+    
       <div
         onClick={() => router.push("/")}
         className="absolute top-10 right-4 z-[60] text-3xl font-bold cursor-pointer"
@@ -132,16 +129,16 @@ export default function StoryViewer() {
         ×
       </div>
 
-      {/* Tap Zones */}
+      
       <div className="absolute left-0 w-1/2 h-full z-40" onClick={prevStory} />
       <div className="absolute right-0 w-1/2 h-full z-40" onClick={nextStory} />
 
-      {/* View Count */}
+      
       <div className="absolute bottom-20 w-full text-center text-sm z-50">
         Viewed by: {viewCount}
       </div>
 
-      {/* ⭐ Dummy Comment Box & Reactions */}
+      
       <div className="absolute bottom-4 left-4 right-4 z-[60] flex items-center gap-3">
         <div className="flex-1 bg-white/20 text-white px-4 py-2 rounded-full text-sm opacity-90">
           Send message...

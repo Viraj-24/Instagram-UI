@@ -16,12 +16,11 @@ export default function Home() {
     priority
   />
         <div className="flex gap-6 text-3xl">
-          <span>🤍</span> {/* Heart */}
-          <span>💬</span> {/* Message */}
+          <span>🤍</span> 
+          <span>💬</span> 
         </div>
       </div>
 
-      {/* STORIES BAR */}
       <div className="p-4 flex gap-4 overflow-x-auto no-scrollbar">
         {stories.map((story) => (
           <Link href={`/story/${story.user.id}`} key={story.user.id}>
@@ -41,10 +40,8 @@ export default function Home() {
         ))}
       </div>
 
-      {/* POSTS FEED */}
       <div className="mt-4 space-y-10 pb-28">
 
-        {/* POST 1 */}
         <div className="border-b border-white/10 pb-10">
           <div className="flex items-center gap-3 px-4">
             <Image
@@ -87,7 +84,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* POST 2 */}
         <div className="border-b border-white/10 pb-10">
           <div className="flex items-center gap-3 px-4">
             <Image
@@ -121,7 +117,7 @@ export default function Home() {
 
           <p className="px-4 font-semibold">300 likes</p>
           <p className="px-4 text-sm mt-1">
-            <span className="font-semibold">Sneha</span> Love this place 💖
+            <span className="font-semibold">Sneha</span> Love this place 
           </p>
 
           <p className="px-4 text-sm text-white/70 mt-1">View all 18 comments</p>
@@ -131,8 +127,6 @@ export default function Home() {
         </div>
 
       </div>
-
-      {/* BOTTOM NAVBAR */}
       <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 py-3 flex justify-around text-3xl">
         <span>🏠</span>
         <span>🔍</span>
